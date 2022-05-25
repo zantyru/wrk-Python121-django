@@ -33,8 +33,15 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/demo/manage.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/demo/templates/homepage" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Student.ITSTEP\Documents\Zaonegin_Evgeny_(teacher)\wrk-Python121-django\demo\templates\homepage" />
+      <recent name="C:\Users\Student.ITSTEP\Documents\Zaonegin_Evgeny_(teacher)\wrk-Python121-django\demo\homapage" />
+      <recent name="C:\Users\Student.ITSTEP\Documents\Zaonegin_Evgeny_(teacher)\wrk-Python121-django\demo\templates\application" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="django runserver" type="PythonConfigurationType" factoryName="Python">

@@ -1,5 +1,6 @@
 from django.http import Http404
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import get_object_or_404, render, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from .models import Question
 
 
@@ -10,7 +11,9 @@ def index(request):
     return render(
         request,
         "application/index.html",
-        context={'latest_question_list': latest_question_list}
+        {
+            'latest_question_list': latest_question_list
+        }
     )
 
 
@@ -18,8 +21,9 @@ def detail(request, question_id):
     question = Question.objects.filter(pk=question_id).first()
     if question:
         response = render(
-            request, "application/detail.html",
-            context={
+            request,
+            "application/detail.html",
+            {
                 "question": question,
             }
         )
@@ -30,8 +34,34 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
-    return HttpResponse(f"Это страница результатов по вопросу {question_id}.")
+    question = get_object_or_404(Question, pk=question_id)
+    return render(
+        request,
+        "application/results.html",
+        {
+            'question': question
+        }
+    )
 
 
 def vote(request, question_id):
-    return HttpResponse(f"Вы проголосовали по вопросу {question_id}.")
+    question = get_object_or_404(Question, pk=question_id)
+
+    selected_choice = question.choice_set.filter(pk=request.POST.get('choice')).first()
+    if selected_choice:
+        selected_choice.votes += 1
+        selected_choice.save()
+        response = HttpResponseRedirect(
+            reverse('application:results', args=(question.id, ))
+        )
+    else:
+        response = render(
+            request,
+            "application/detail.html",
+            {
+                'question': question,
+                'error_message': 'Вы не выбрали вариант ответа.'
+            }
+        )
+
+    return response
