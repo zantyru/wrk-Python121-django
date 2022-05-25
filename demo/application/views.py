@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, HttpResponse
 from .models import Question
 
@@ -14,7 +15,18 @@ def index(request):
 
 
 def detail(request, question_id):
-    return HttpResponse(f"Это вопрос {question_id}.")
+    question = Question.objects.filter(pk=question_id).first()
+    if question:
+        response = render(
+            request, "application/detail.html",
+            context={
+                "question": question,
+            }
+        )
+    else:
+        raise Http404("Вопрос не существует.")
+
+    return response
 
 
 def results(request, question_id):
